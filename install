@@ -28,7 +28,9 @@ if ! command -v stow &> /dev/null; then
     apt install -y stow
 fi
 
-mkdir "${HOME}/.config"
+if [ ! -d "${HOME}/.config" ]; then
+    mkdir "${HOME}/.config"
+fi
 stow --restow --no-folding --target "${HOME}/.config" config
 
 mise install
