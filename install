@@ -14,18 +14,18 @@ if ! command -v mise &> /dev/null; then
 fi
 
 # Ensure Fish is installed
-# if ! command -v fish &> /dev/null; then
-#     apt-get install fish
-#     echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/4/Debian_Unstable/ /' > /etc/apt/sources.list.d/shells:fish:release:4.list
-#     curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:4/Debian_Unstable/Release.key | gpg --dearmor > /etc/apt/trusted.gpg.d/shells_fish_release_4.gpg
-#     apt update
-#     apt install fish
-#     chsh -s /usr/bin/fish
-# fi
+if ! command -v fish &> /dev/null; then
+    echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/4/Debian_Unstable/ /' > /etc/apt/sources.list.d/shells:fish:release:4.list
+    curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:4/Debian_Unstable/Release.key | gpg --dearmor > /etc/apt/trusted.gpg.d/shells_fish_release_4.gpg
+    apt update
+    apt install -y fish
+    chsh -s /usr/bin/fish
+fi
 
 # Ensure GNU Stow is installed
 if ! command -v stow &> /dev/null; then
-    apt install stow
+    apt update
+    apt install -y stow
 fi
 
 stow --restow --no-folding --target "${HOME}" config
