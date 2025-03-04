@@ -28,6 +28,6 @@ if ! command -v stow &> /dev/null; then
     apt install -y stow
 fi
 
-stow --restow --no-folding --target "${HOME}" config
+stow --restow --no-folding --target "${HOME}/.config" config
 
 mise install
