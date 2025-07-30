@@ -34,4 +34,10 @@ if ! command -v claude &> /dev/null; then
     rm -f /tmp/claude-install.sh
 fi
 
-echo "Done!"
+# Add Graphite MCP to Claude
+if [[ -x /usr/local/bin/gt ]] && [[ -x "${HOME}/.local/bin/claude" ]]; then
+    echo "Adding Graphite MCP to Claude..."
+    "${HOME}/.local/bin/claude" mcp add graphite /usr/local/bin/gt mcp || echo "Warning: Failed to add Graphite MCP"
+fi
+
+echo "https://app.graphite.dev/settings/cli"
