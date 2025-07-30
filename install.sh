@@ -7,8 +7,8 @@ die() {
 
 [[ -f /etc/debian_version ]] || die "Only Debian is supported"
 
-apt update || die "Failed to update package list"
-apt install -y curl jq || die "Failed to install dependencies"
+sudo apt update || die "Failed to update package list"
+sudo apt install -y curl jq || die "Failed to install dependencies"
 
 if ! command -v gt &> /dev/null; then
     echo "Installing Graphite CLI..."
@@ -18,8 +18,8 @@ if ! command -v gt &> /dev/null; then
     
     [[ -n "${version}" && "${version}" != "null" ]] || die "Invalid Graphite version"
     
-    curl -L "https://github.com/withgraphite/homebrew-tap/releases/download/v${version}/gt-linux" -o /usr/local/bin/gt || die "Failed to download Graphite"
-    chmod +x /usr/local/bin/gt || die "Failed to make Graphite executable"
+    sudo curl -L "https://github.com/withgraphite/homebrew-tap/releases/download/v${version}/gt-linux" -o /usr/local/bin/gt || die "Failed to download Graphite"
+    sudo chmod +x /usr/local/bin/gt || die "Failed to make Graphite executable"
 fi
 
 if ! command -v claude &> /dev/null; then
@@ -28,6 +28,10 @@ if ! command -v claude &> /dev/null; then
     curl -fsSL claude.ai/install.sh > /tmp/claude-install.sh || die "Failed to download Claude installer"
     bash /tmp/claude-install.sh || { rm -f /tmp/claude-install.sh; die "Failed to install Claude"; }
     rm -f /tmp/claude-install.sh
+fi
+
+if ! grep -q "export PATH=\"~/.local/bin:\$PATH\"" ~/.bash_profile 2>/dev/null; then
+    echo "export PATH=\"~/.local/bin:\$PATH\"" >> ~/.bash_profile
 fi
 
 echo "Done!"
