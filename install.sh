@@ -34,7 +34,11 @@ if ! command -v claude &> /dev/null; then
     rm -f /tmp/claude-install.sh
 fi
 
-# Add Graphite MCP to Claude
+if [[ -x "${HOME}/.local/bin/claude" ]]; then
+    "${HOME}/.local/bin/claude" config set -g theme light || echo "Warning: Failed to set Claude theme"
+    "${HOME}/.local/bin/claude" config set -g editorMode vim || echo "Warning: Failed to set Claude editorMode"
+fi
+
 if [[ -x /usr/local/bin/gt ]] && [[ -x "${HOME}/.local/bin/claude" ]]; then
     echo "Adding Graphite MCP to Claude..."
     "${HOME}/.local/bin/claude" mcp add graphite /usr/local/bin/gt mcp || echo "Warning: Failed to add Graphite MCP"
