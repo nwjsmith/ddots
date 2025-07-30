@@ -22,16 +22,16 @@ if ! command -v gt &> /dev/null; then
     sudo chmod +x /usr/local/bin/gt || die "Failed to make Graphite executable"
 fi
 
+if ! grep -q "export PATH=\"\${HOME}/.local/bin:\${PATH}\"" ~/.bash_profile 2>/dev/null; then
+    echo "export PATH=\"\${HOME}/.local/bin:\${PATH}\"" >> ~/.bash_profile
+fi
+
 if ! command -v claude &> /dev/null; then
     echo "Installing Claude Code..."
     
     curl -fsSL claude.ai/install.sh > /tmp/claude-install.sh || die "Failed to download Claude installer"
     bash /tmp/claude-install.sh || { rm -f /tmp/claude-install.sh; die "Failed to install Claude"; }
     rm -f /tmp/claude-install.sh
-fi
-
-if ! grep -q "export PATH=\"~/.local/bin:\$PATH\"" ~/.bash_profile 2>/dev/null; then
-    echo "export PATH=\"~/.local/bin:\$PATH\"" >> ~/.bash_profile
 fi
 
 echo "Done!"
