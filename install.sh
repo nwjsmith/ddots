@@ -10,7 +10,7 @@ die() {
 sudo apt update || die "Failed to update package list"
 sudo apt install -y curl jq || die "Failed to install dependencies"
 
-if ! command -v gt &> /dev/null; then
+if [[ ! -x /usr/local/bin/gt ]]; then
     echo "Installing Graphite CLI..."
     
     graphite_info=$(curl -s https://registry.npmjs.org/@withgraphite/graphite-cli/stable) || die "Failed to fetch Graphite info"
@@ -26,7 +26,7 @@ if ! grep -q "export PATH=\"\${HOME}/.local/bin:\${PATH}\"" ~/.bash_profile 2>/d
     echo "export PATH=\"\${HOME}/.local/bin:\${PATH}\"" >> ~/.bash_profile
 fi
 
-if ! command -v claude &> /dev/null; then
+if [[ ! -x "${HOME}/.local/bin/claude" ]]; then
     echo "Installing Claude Code..."
     
     curl -fsSL claude.ai/install.sh > /tmp/claude-install.sh || die "Failed to download Claude installer"
