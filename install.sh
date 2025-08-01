@@ -58,8 +58,13 @@ if [[ -x "${HOME}/.local/bin/claude" ]]; then
 fi
 
 if [[ -x /usr/local/bin/gt ]] && [[ -x "${HOME}/.local/bin/claude" ]]; then
-    echo "Adding Graphite MCP to Claude..."
-    "${HOME}/.local/bin/claude" mcp add graphite /usr/local/bin/gt mcp || echo "Warning: Failed to add Graphite MCP"
+    # Check if Graphite MCP is already configured
+    if ! "${HOME}/.local/bin/claude" mcp list 2>/dev/null | grep -q "graphite: /usr/local/bin/gt mcp"; then
+        echo "Adding Graphite MCP to Claude..."
+        "${HOME}/.local/bin/claude" mcp add graphite /usr/local/bin/gt mcp || echo "Warning: Failed to add Graphite MCP"
+    else
+        echo "Graphite MCP already configured"
+    fi
 fi
 
 echo "https://app.graphite.dev/settings/cli"
