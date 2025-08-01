@@ -7,8 +7,18 @@ die() {
 
 [[ -f /etc/debian_version ]] || die "Only Debian is supported"
 
-sudo apt update || die "Failed to update package list"
-sudo apt install -y curl jq || die "Failed to install dependencies"
+sudo apt-get update || die "Failed to update package list"
+sudo apt-get install -y curl jq || die "Failed to install dependencies"
+
+# Install GitHub CLI
+if ! command -v gh &> /dev/null; then
+    echo "Installing GitHub CLI..."
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg || die "Failed to add GitHub CLI keyring"
+    sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null || die "Failed to add GitHub CLI repository"
+    sudo apt-get update || die "Failed to update package list for GitHub CLI"
+    sudo apt-get install -y gh || die "Failed to install GitHub CLI"
+fi
 
 if [[ ! -x /usr/local/bin/gt ]]; then
     echo "Installing Graphite CLI..."
