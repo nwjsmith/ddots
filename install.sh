@@ -28,7 +28,15 @@ if [[ ! -x /usr/local/bin/gt ]]; then
     
     [[ -n "${version}" && "${version}" != "null" ]] || die "Invalid Graphite version"
     
-    sudo curl -L "https://github.com/withgraphite/homebrew-tap/releases/download/v${version}/gt-linux" -o /usr/local/bin/gt || die "Failed to download Graphite"
+    # Detect architecture
+    arch=$(uname -m)
+    if [[ "${arch}" == "aarch64" || "${arch}" == "arm64" ]]; then
+        binary_name="gt-linux-arm64"
+    else
+        binary_name="gt-linux"
+    fi
+    
+    sudo curl -L "https://github.com/withgraphite/homebrew-tap/releases/download/v${version}/${binary_name}" -o /usr/local/bin/gt || die "Failed to download Graphite"
     sudo chmod +x /usr/local/bin/gt || die "Failed to make Graphite executable"
 fi
 
