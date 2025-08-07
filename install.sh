@@ -8,7 +8,7 @@ die() {
 [[ -f /etc/debian_version ]] || die "Only Debian is supported"
 
 sudo apt-get update || die "Failed to update package list"
-sudo apt-get install -y curl jq || die "Failed to install dependencies"
+sudo apt-get install -y --no-install-recommends curl jq neovim || die "Failed to install dependencies"
 
 # Install GitHub CLI
 if ! command -v gh &> /dev/null; then
@@ -17,7 +17,7 @@ if ! command -v gh &> /dev/null; then
     sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null || die "Failed to add GitHub CLI repository"
     sudo apt-get update || die "Failed to update package list for GitHub CLI"
-    sudo apt-get install -y gh || die "Failed to install GitHub CLI"
+    sudo apt-get install -y --no-install-recommends gh || die "Failed to install GitHub CLI"
 fi
 
 if [[ ! -x /usr/local/bin/gt ]]; then
