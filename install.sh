@@ -10,4 +10,4 @@ sudo chown -R wsdev:wsdev /nix
 
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
-USER=wsdev nix run home-manager/master -- switch --flake .
+nix run home-manager/master -- switch --flake .
