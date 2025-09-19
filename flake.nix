@@ -18,6 +18,7 @@
         overlays = [
           (final: prev: {
             claude-code-bin = final.callPackage ./pkgs/claude-code-bin.nix {};
+            ghostty-terminfo = final.callPackage ./pkgs/ghostty-terminfo.nix {};
           })
         ];
       };
@@ -31,7 +32,7 @@
           home.stateVersion = "25.11";
 
           home.packages = with pkgs; [
-            ghostty.terminfo
+            ghostty-terminfo.terminfo
           ];
 
           programs.claude-code = {
