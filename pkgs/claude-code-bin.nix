@@ -47,6 +47,7 @@ in
       [makeWrapper]
       ++ lib.optionals stdenv.isLinux [autoPatchelfHook];
 
+    dontStrip = true;
     dontUnpack = true;
 
     installPhase = ''
