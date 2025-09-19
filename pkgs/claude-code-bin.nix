@@ -57,6 +57,12 @@ in
       runHook postInstall
     '';
 
+    postInstall = ''
+      wrapProgram $out/bin/claude \
+      --set DISABLE_AUTOUPDATER 1 \
+      --unset DEV
+    '';
+
     # Claude tries to create directories when running --version
     # so we skip the install check
     doInstallCheck = false;
