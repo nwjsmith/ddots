@@ -10,7 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "https://release.files.ghostty.org/${finalAttrs.version}/Ghostty.dmg";
-    hash = "sha256-3twGICXRSy5LDBACn2X9s588ygyMcPveF7oebYcZRBk=";
+    hash = "sha256-QyHKQ00iRxWS6GwPfRAi9RDSlgX/50N0+MASmnPGAo4=";
   };
 
   sourceRoot = ".";
