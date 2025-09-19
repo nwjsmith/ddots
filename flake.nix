@@ -9,10 +9,18 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, ... }:
     let
       system = "aarch64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [
+          (final: prev: {
+            claude-code-bin = final.callPackage ./pkgs/claude-code-bin.nix {};
+          })
+        ];
+      };
     in {
       homeConfigurations.wsdev = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -28,6 +36,7 @@
 
           programs.claude-code = {
             enable = true;
+            package = pkgs.claude-code-bin;
             settings = {
               defaultMode = "bypassPermissions";
               includeCoAuthoredBy = false;
