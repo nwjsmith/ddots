@@ -23,7 +23,7 @@
           home.stateVersion = "25.11";
 
           home.packages = with pkgs; [
-            ghostty-bin.terminfo
+            ghostty.terminfo
           ];
         }];
       };
