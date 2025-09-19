@@ -25,6 +25,15 @@
           home.packages = with pkgs; [
             ghostty.terminfo
           ];
+
+          programs.claude-code = {
+            enable = true;
+            settings = {
+              defaultMode = "bypassPermissions";
+              includeCoAuthoredBy = false;
+              theme = "light";
+            };
+          };
         }];
       };
     };
