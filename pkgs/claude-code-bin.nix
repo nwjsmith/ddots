@@ -69,8 +69,8 @@ in
 
     meta = with lib; {
       description = "Claude Code - AI-powered coding assistant CLI";
-      homepage = "https://claude.ai/code";
-      changelog = "https://claude.ai/code/changelog";
+      homepage = "https://claude.com/product/claude-code";
+      changelog = "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md";
       sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.unfree;
       maintainers = [];
