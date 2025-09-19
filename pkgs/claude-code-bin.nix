@@ -48,11 +48,6 @@ in
       ++ lib.optionals stdenv.isLinux [autoPatchelfHook];
 
     dontUnpack = true;
-    dontConfigure = true;
-    dontBuild = true;
-    dontStrip = stdenv.isDarwin;
-    dontPatchELF = true;
-    dontPatchShebangs = true;
 
     installPhase = ''
       runHook preInstall
