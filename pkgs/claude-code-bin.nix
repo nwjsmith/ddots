@@ -15,7 +15,7 @@
       };
       "aarch64-linux" = {
         suffix = "linux-arm64";
-        hash = "sha256-fLDMwAQVYkTc1t+3Nw0HsJSIaHNLjanxmnjdwOXZhVs=";
+        hash = "sha256-fGUVTua5DS0ecfxzgEPsd01JczA6KF66bp23xIbsEZs="
       };
       "x86_64-darwin" = {
         suffix = "darwin-x64";
